@@ -49,3 +49,14 @@ const TaskForm = () => {
 };
 
 export default TaskForm;
+const handleDelete = async (id) => {
+  try {
+    const token = localStorage.getItem('token');
+    await axios.delete(`http://localhost:5000/api/tasks/${id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    setTasks(tasks.filter(t => t._id !== id)); // on retire la tâche de la liste
+  } catch (err) {
+    console.error("Erreur lors de la suppression");
+  }
+};
